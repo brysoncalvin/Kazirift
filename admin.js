@@ -65,7 +65,7 @@ function initGate() {
     }
     setCfg({ owner, repo, branch, token });
     try {
-      await ghGet("data/jobs.json");
+      await ghGet("jobs.json");
       $("#gate").style.display = "none";
       $("#panel").style.display = "block";
       refreshJobs();
@@ -98,7 +98,7 @@ function $$two() {}
 // --- Jobs ---
 async function refreshJobs() {
   try {
-    const { json } = await ghGet("data/jobs.json");
+    const { json } = await ghGet("jobs.json");
     $("#job-count").textContent = json.length;
     $("#job-list").innerHTML = json
       .slice()
@@ -142,9 +142,9 @@ $("#add-job")?.addEventListener("click", async () => {
   };
   try {
     showStatus(statusEl, "Publishing...", true);
-    const { json, sha } = await ghGet("data/jobs.json");
+    const { json, sha } = await ghGet("jobs.json");
     json.push(job);
-    await ghPut("data/jobs.json", json, sha, `Add job: ${title} @ ${company}`);
+    await ghPut("jobs.json", json, sha, `Add job: ${title} @ ${company}`);
     showStatus(statusEl, "Published. Live in ~30-60s once Netlify rebuilds.", true);
     ["j-title", "j-company", "j-location", "j-category", "j-type", "j-salary", "j-deadline", "j-source", "j-desc"].forEach(
       (id) => ($("#" + id).value = "")
@@ -158,9 +158,9 @@ $("#add-job")?.addEventListener("click", async () => {
 async function removeJob(id) {
   const statusEl = $("#job-status");
   try {
-    const { json, sha } = await ghGet("data/jobs.json");
+    const { json, sha } = await ghGet("jobs.json");
     const next = json.filter((j) => j.id !== id);
-    await ghPut("data/jobs.json", next, sha, `Remove job ${id}`);
+    await ghPut("jobs.json", next, sha, `Remove job ${id}`);
     showStatus(statusEl, "Removed.", true);
     refreshJobs();
   } catch (e) {
@@ -171,7 +171,7 @@ async function removeJob(id) {
 // --- News ---
 async function refreshNews() {
   try {
-    const { json } = await ghGet("data/news.json");
+    const { json } = await ghGet("news.json");
     $("#news-count").textContent = json.length;
     $("#news-list-admin").innerHTML = json
       .slice()
@@ -208,9 +208,9 @@ $("#add-news")?.addEventListener("click", async () => {
   };
   try {
     showStatus(statusEl, "Publishing...", true);
-    const { json, sha } = await ghGet("data/news.json");
+    const { json, sha } = await ghGet("news.json");
     json.push(item);
-    await ghPut("data/news.json", json, sha, `Add news: ${title}`);
+    await ghPut("news.json", json, sha, `Add news: ${title}`);
     showStatus(statusEl, "Published. Live in ~30-60s once Netlify rebuilds.", true);
     ["n-title", "n-category", "n-source", "n-summary"].forEach((id) => ($("#" + id).value = ""));
     refreshNews();
@@ -222,9 +222,9 @@ $("#add-news")?.addEventListener("click", async () => {
 async function removeNews(id) {
   const statusEl = $("#news-status");
   try {
-    const { json, sha } = await ghGet("data/news.json");
+    const { json, sha } = await ghGet("news.json");
     const next = json.filter((n) => n.id !== id);
-    await ghPut("data/news.json", next, sha, `Remove news ${id}`);
+    await ghPut("news.json", next, sha, `Remove news ${id}`);
     showStatus(statusEl, "Removed.", true);
     refreshNews();
   } catch (e) {
