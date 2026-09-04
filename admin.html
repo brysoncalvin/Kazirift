@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>KaziRift Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F7F4EC;--ink:#151515;--ink-soft:#46443E;--rust:#C4491D;--green:#1F5C4A;--rule:#D8D2C2;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,sans-serif;padding:24px 16px 80px;}
+  .wrap{max-width:720px;margin:0 auto;}
+  h1{font-family:"Source Serif 4",serif;font-size:1.6rem;margin:0 0 4px;}
+  p.sub{color:var(--ink-soft);margin:0 0 24px;font-size:0.9rem;}
+  fieldset{border:1px solid var(--rule);padding:16px;margin-bottom:20px;border-radius:2px;}
+  legend{font-weight:600;font-size:0.85rem;padding:0 6px;}
+  label{display:block;font-size:0.8rem;font-weight:600;margin:10px 0 4px;}
+  input,textarea,select{width:100%;padding:9px;border:1px solid var(--rule);font-family:inherit;font-size:0.9rem;background:#fff;}
+  textarea{resize:vertical;min-height:70px;}
+  button{cursor:pointer;font-family:inherit;font-weight:600;font-size:0.88rem;}
+  .btn-primary{background:var(--ink);color:var(--paper);border:none;padding:10px 18px;margin-top:14px;}
+  .btn-primary:hover{background:var(--rust);}
+  .btn-secondary{background:none;border:1px solid var(--rule);padding:8px 14px;}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .item{border-bottom:1px solid var(--rule);padding:10px 0;display:flex;justify-content:space-between;gap:10px;align-items:start;}
+  .item h4{margin:0 0 3px;font-size:0.92rem;}
+  .item span{font-size:0.78rem;color:var(--ink-soft);}
+  .del{background:none;border:none;color:var(--rust);font-size:0.8rem;text-decoration:underline;}
+  .status{font-size:0.85rem;margin-top:10px;min-height:1.2em;}
+  .status.ok{color:var(--green);}
+  .status.err{color:var(--rust);}
+  .gate{border:1px solid var(--rule);padding:20px;}
+  .tabs2{display:flex;gap:8px;margin-bottom:16px;}
+  .tabs2 button{padding:7px 14px;border:1px solid var(--rule);background:#fff;}
+  .tabs2 button.active{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  small.hint{display:block;color:var(--ink-soft);margin-top:4px;font-size:0.76rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>KaziRift Admin</h1>
+  <p class="sub">Add jobs and business news. Saving here commits straight to your GitHub repo, which Netlify auto-rebuilds — usually live within a minute.</p>
+
+  <div id="gate" class="gate">
+    <label for="gh-owner">GitHub username / org</label>
+    <input id="gh-owner" placeholder="e.g. ghost-dev" />
+    <label for="gh-repo">Repo name</label>
+    <input id="gh-repo" placeholder="e.g. kazirift" />
+    <label for="gh-branch">Branch</label>
+    <input id="gh-branch" placeholder="main" value="main" />
+    <label for="gh-token">GitHub token (fine-grained, Contents: read & write, this repo only)</label>
+    <input id="gh-token" type="password" placeholder="github_pat_..." />
+    <small class="hint">Kept only in this browser's local storage. Never share this token or paste it anywhere else. See the README for how to generate one scoped to just this repo.</small>
+    <button class="btn-primary" id="save-config">Connect</button>
+    <div class="status" id="gate-status"></div>
+  </div>
+
+  <div id="panel" style="display:none;">
+    <div class="tabs2">
+      <button data-tab="jobs" class="active">Jobs</button>
+      <button data-tab="news">Business news</button>
+      <button class="btn-secondary" id="disconnect" style="margin-left:auto;">Disconnect</button>
+    </div>
+
+    <div id="tab-jobs">
+      <fieldset>
+        <legend>New job</legend>
+        <label>Title</label><input id="j-title" />
+        <div class="row">
+          <div><label>Company</label><input id="j-company" /></div>
+          <div><label>Location</label><input id="j-location" /></div>
+        </div>
+        <div class="row">
+          <div><label>Category</label><input id="j-category" placeholder="e.g. Sales & Marketing" /></div>
+          <div><label>Type</label><input id="j-type" placeholder="Full-time / Contract / Part-time" /></div>
+        </div>
+        <div class="row">
+          <div><label>Salary (optional)</label><input id="j-salary" placeholder="KES 30,000 - 45,000" /></div>
+          <div><label>Application deadline</label><input id="j-deadline" type="date" /></div>
+        </div>
+        <label>Source link (where you found it)</label><input id="j-source" placeholder="https://..." />
+        <label>Description</label><textarea id="j-desc"></textarea>
+        <button class="btn-primary" id="add-job">Publish job</button>
+        <div class="status" id="job-status"></div>
+      </fieldset>
+      <h3>Live jobs (<span id="job-count">0</span>)</h3>
+      <div id="job-list"></div>
+    </div>
+
+    <div id="tab-news" style="display:none;">
+      <fieldset>
+        <legend>New business news item</legend>
+        <label>Headline</label><input id="n-title" />
+        <div class="row">
+          <div><label>Category</label><input id="n-category" placeholder="Business / Finance / Markets" /></div>
+          <div><label>Source link</label><input id="n-source" placeholder="https://..." /></div>
+        </div>
+        <label>Summary</label><textarea id="n-summary"></textarea>
+        <button class="btn-primary" id="add-news">Publish news</button>
+        <div class="status" id="news-status"></div>
+      </fieldset>
+      <h3>Live news (<span id="news-count">0</span>)</h3>
+      <div id="news-list-admin"></div>
+    </div>
+  </div>
+</div>
+<script src="assets/admin.js"></script>
+</body>
+</html>

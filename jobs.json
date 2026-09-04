@@ -1,0 +1,58 @@
+[
+  {
+    "id": "j-1001",
+    "title": "Sales Executive",
+    "company": "Nairobi Distributors Ltd",
+    "location": "Nairobi",
+    "category": "Sales & Marketing",
+    "type": "Full-time",
+    "salary": "KES 30,000 - 45,000",
+    "posted": "2026-09-02",
+    "deadline": "2026-09-20",
+    "source": "https://example.com/job/1001",
+    "description": "Drive sales growth across the Nairobi metro region, manage a portfolio of retail clients, and report weekly to the sales manager.",
+    "sponsored": false
+  },
+  {
+    "id": "j-1002",
+    "title": "Junior Android Developer",
+    "company": "B Labs",
+    "location": "Remote (Kenya)",
+    "category": "IT & Software",
+    "type": "Contract",
+    "salary": "Negotiable",
+    "posted": "2026-09-01",
+    "deadline": "2026-09-25",
+    "source": "https://example.com/job/1002",
+    "description": "Build and maintain Android apps. Experience with Kotlin or Java required. Portfolio of published apps a plus.",
+    "sponsored": false
+  },
+  {
+    "id": "j-1003",
+    "title": "Accounts Clerk",
+    "company": "Rift Valley Traders",
+    "location": "Nakuru",
+    "category": "Finance & Accounting",
+    "type": "Full-time",
+    "salary": "KES 25,000 - 35,000",
+    "posted": "2026-08-30",
+    "deadline": "2026-09-15",
+    "source": "https://example.com/job/1003",
+    "description": "Maintain ledgers, reconcile accounts, and prepare monthly financial summaries for management review.",
+    "sponsored": false
+  },
+  {
+    "id": "j-1004",
+    "title": "Customer Support Agent",
+    "company": "Zetu Telecom",
+    "location": "Mombasa",
+    "category": "Customer Service",
+    "type": "Full-time",
+    "salary": "KES 28,000",
+    "posted": "2026-08-29",
+    "deadline": "2026-09-18",
+    "source": "https://example.com/job/1004",
+    "description": "Handle inbound customer queries via phone and chat. Swahili and English fluency required.",
+    "sponsored": false
+  }
+]
