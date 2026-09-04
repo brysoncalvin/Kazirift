@@ -12,8 +12,8 @@ const $$ = (sel, el = document) => Array.from(el.querySelectorAll(sel));
 async function loadData() {
   try {
     const [jobsRes, newsRes] = await Promise.all([
-      fetch("data/jobs.json", { cache: "no-store" }),
-      fetch("data/news.json", { cache: "no-store" }),
+      fetch("jobs.json", { cache: "no-store" }),
+      fetch("news.json", { cache: "no-store" }),
     ]);
     state.jobs = await jobsRes.json();
     state.news = await newsRes.json();
