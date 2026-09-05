@@ -6,13 +6,5 @@
     "posted": "2026-09-03",
     "source": "https://example.com/news/2001",
     "category": "Business"
-  },
-  {
-    "id": "n-2002",
-    "title": "M-Pesa transaction volumes rise ahead of festive season",
-    "summary": "Mobile money agents report a steady uptick in transactions as businesses prepare for the September school-fees and shopping period.",
-    "posted": "2026-09-02",
-    "source": "https://example.com/news/2002",
-    "category": "Finance"
   }
 ]
