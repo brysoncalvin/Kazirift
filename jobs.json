@@ -54,5 +54,19 @@
     "source": "https://example.com/job/1004",
     "description": "Handle inbound customer queries via phone and chat. Swahili and English fluency required.",
     "sponsored": false
+  },
+  {
+    "id": "j-1788638832372",
+    "title": "Freelance",
+    "company": "Eagle web",
+    "location": "Home / anywhere",
+    "category": "Freelance",
+    "type": "Fulltime/part-time/free time",
+    "salary": "",
+    "posted": "2026-09-05",
+    "deadline": "",
+    "source": "https://www.eaglewebcommerce.com/register/Helper1",
+    "description": "Bee you own boss. Manage your time , working hours doing online jobs such as transcription, data entry freelancing and many more.",
+    "sponsored": false
   }
 ]
